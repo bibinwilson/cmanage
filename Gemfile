@@ -1,6 +1,15 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
-
+#docker gem
+gem "font-awesome-rails"
+gem 'chef-api', '~> 0.1'
+gem 'chef', '~> 12.3.0'
+gem 'rest-client', '~> 1.8.0'
+gem 'docker-api', :require => 'docker'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+gem 'node', '~> 0.0.2'
+gem 'net-ping', '~> 1.7.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use mysql as the database for Active Record
@@ -13,6 +22,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
+
+gem 'coffee-script-source', '1.8.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -37,3 +48,5 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+
+gem 'json'

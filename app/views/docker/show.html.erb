@@ -1,0 +1,40 @@
+<%# @cinfo.each do |@container| %>
+
+<%#= @container %>
+<%# end %>
+
+<table class="table table-hover">
+<!-- On rows -->
+<th> Name</th>
+<th> @container ID</th>
+<th>Status</th>
+<th>Image Name</th>
+<th>Edit</th>
+
+<!-- On cells (`td` or `th`) -->
+
+<tr>
+<% cname = @container.name %>
+<% trim = cname.slice!(0..7) %>
+  <td ><%= cname.chomp[0...-1] %></td>
+  <td ><%= @container.c_id %></td>
+  <td ><%= @container.status %></td>
+  <td ><%= @container.image %></td>
+ 
+  
+ </tr>
+ 
+</table>
+
+
+
+
+    <style type="text/css">
+    .col-lg-4 {
+    width: 93.333% !important;
+}
+
+    </style>
+    
+
+

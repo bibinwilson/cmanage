@@ -1,0 +1,63 @@
+.container-list {
+	width: 500px;
+
+}
+
+input[type="reset"], input[type="submit"] {
+    cursor: pointer;
+    width: 300px;
+    height: 50px;
+    margin-left: 32%;
+    background: #e74c3c;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+    .jumbotron h1, .jumbotron .h1 {
+    font-size: 51px;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.table input, button, select, textarea {
+    background: none;
+    border: none;
+}
+
+.off{display:none;}
+.loading { margin: auto; }
+
+.loading span {
+  line-height: 32px;
+  margin-left: 12px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+.loading img {
+    vertical-align: middle;
+    /*height: 100px;
+    width: 100px;*/
+    left: 0;
+    opacity: 1;
+    filter: alpha(opacity=50);
+    position: absolute;
+    top: 0;
+    z-index: 1020;
+    margin-left: 450px;
+    margin-top: 290px;
+}
+.overlay {
+  position: fixed;
+  _position:absolute;top:0%;
+  left:0%;width:100%;
+  height: 100%;
+  background:#fff;
+  z-index:1001;-moz-opacity:0.2;
+  opacity:.20;filter:alpha(opacity=20); 
+  overflow: hidden; z-index:9999
+}
+
+

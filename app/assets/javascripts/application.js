@@ -13,4 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require_tree .
+function show_loader(){
+	$("#black-overlay").removeClass("off");
+	$("#loader_id").removeClass("off");
+	
+
+}
+
+function hide_loader(){
+
+	$("#loader_id").addClass("off");
+}

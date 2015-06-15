@@ -1,0 +1,41 @@
+
+<div class="contianer-list" >
+  <!-- Table -->
+  <table class="table table-striped">
+
+  
+   
+   
+    <tr>
+    <thead>
+        <tr>
+            <td> Contianer ID </td>
+            <td> Contianer Info </td>
+            <td> Contianer URL </td>
+        </tr>
+
+    </thead>
+    
+    <% @data.each do |info| %>
+               
+        <tr>
+
+        <% info.each do | key , value |  %>
+
+        <td><%= "#{value}" %> </td>
+
+        <% end %>
+              
+        </tr>
+        
+    <% end %>
+    
+                       
+
+     </tr>
+            
+        
+    
+  
+</table>
+</div>

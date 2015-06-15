@@ -1,0 +1,15 @@
+<%= form_for @host, :url => {:controller => "host", :action => "create"} do |f| %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'control-label' %><br>
+    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.label :ip, class: 'control-label' %><br>
+    <%= f.text_field :ip, class: 'form-control' %>
+    <span class="help-block"></span>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit 'Create', class: 'btn btn-primary',id: 'load' %>
+  </div>
+
+<% end %>

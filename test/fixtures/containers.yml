@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hosts_id: 
+  command: MyString
+  created: MyString
+  c_id: MyString
+  image: MyString
+  name: MyString
+  ports: MyString
+  status: MyString
+
+two:
+  hosts_id: 
+  command: MyString
+  created: MyString
+  c_id: MyString
+  image: MyString
+  name: MyString
+  ports: MyString
+  status: MyString

@@ -1,9 +1,38 @@
 Rails.application.routes.draw do
+  get 'host/new'
+
+  get 'host/list'
+
+  get 'docker/new'
+
+  get 'docker/index', to: 'docker#index', as: 'home'
+  get 'docker/containers', to: 'docker#containers', as: 'containers'
+  #get 'host/hosts', to: 'host#hosts', as: 'hosts'
+
+  get 'index/index'
+
+  Rails.application.routes.draw do
+
+  resources :host do
+    collection do 
+      get :hosts
+    end  
+  end
+
+  resources :docker do
+    collection do
+      post :sync_containers
+    end
+    
+  end  
+  
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'index#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -1,0 +1,55 @@
+<div class="page-content">
+                    <div id="tab-general">
+                        <div class="row mbl">
+                            <div class="col-lg-12">
+                                
+                                            <div class="col-md-12">
+                                                <div id="area-chart-spline" style="width: 100%; height: 300px; display: none;">
+                                                </div>
+                                            </div>
+                                
+                            </div>
+
+                            <div class="col-lg-12">
+                            <div class="col-lg-12">
+                            <ul id="generalTab" class="nav nav-tabs responsive">
+                            <li class="active"><a href="#alert-tab" data-toggle="tab">Host List</a></li>
+                            <!-- <li><a href="#note-tab" data-toggle="tab">Host List</a></li> -->
+                            <!-- <li><a href="#label-badge-tab" data-toggle="tab">Labels & Badges</a></li>
+                            <li><a href="#pagination-tab" data-toggle="tab">Paginations</a></li>
+                            <li><a href="#input-group-tab" data-toggle="tab">Input Groups</a></li> -->
+                            <li><a href="#list-group-tab" data-toggle="tab">New Host</a></li>
+                            </ul>
+                        <div id="generalTabContent" class="tab-content responsive">
+                            <div id="alert-tab" class="tab-pane fade in active">
+                                <div class="row">
+                                  <div class="panel panel-grey">
+                                    
+                                            <div class="panel-body pan">
+                                             
+                                             <%= render :partial => 'hlist' %>
+                                                
+                                            </div>
+                                        </div>
+                            </div>
+                            </div>
+                            
+                            <div id="list-group-tab" class="tab-pane fade">
+                                <%#= render :partial => 'hlist' %>
+                                <%= render :partial => 'new_host_form' %>
+                            </div>
+                            
+                                                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                            
+                            
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!--END CONTENT-->
+

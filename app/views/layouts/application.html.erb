@@ -8,7 +8,28 @@
 </head>
 <body>
 
+<% if params[:controller] == "docker" %>
+<%= render :partial => 'layouts/header' %>
+<% end %>
+<% if params[:controller] == "host" %>
+<%= render :partial => 'layouts/header' %>
+<% end %>
+ 
+<% if params[:controller] == "docker" %>
+ 
+<%= render :partial => 'layouts/sidebar' %>
+ 
+<% end %>
+
+<% if params[:controller] == "host" %>
+ 
+<%= render :partial => 'layouts/sidebar' %>
+ 
+<% end %>
+
+<div id="page-wrapper">
 <%= yield %>
+</div>
 
 </body>
 </html>
