@@ -1,0 +1,18 @@
+<%#= form_for @ncontainer, :url => {:controller => "host", :action => "new_container"} do |f| %>
+<%= form_tag(controller: "host", action: "new_container", method: "post") do %>
+
+  <div class="form-group"> 
+    <%= label_tag(:name, "Container Name", class: "control-label")  %><br>
+    <%#= f.text_field :name, class: 'form-control' %>
+    <%#= f.label :image, class: 'control-label' %><br>
+    <%#= f.text_field :image, class: 'form-control' %>
+    <%= text_field_tag(:name)%>
+    <span class="help-block"></span>
+  </div>
+  
+  <div class="actions">
+    <%#= f.submit 'Create', class: 'btn btn-primary',id: 'load' %>
+    <%= submit_tag("Create") %>
+  </div>
+
+<% end %>

@@ -1,40 +1,10 @@
-<%# @cinfo.each do |@container| %>
 
-<%#= @container %>
-<%# end %>
+<%#= render :partial => 'container_info' %>
 
-<table class="table table-hover">
-<!-- On rows -->
-<th> Name</th>
-<th> @container ID</th>
-<th>Status</th>
-<th>Image Name</th>
-<th>Edit</th>
 
-<!-- On cells (`td` or `th`) -->
+    <a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Launch Demo Modal</a>
 
-<tr>
-<% cname = @container.name %>
-<% trim = cname.slice!(0..7) %>
-  <td ><%= cname.chomp[0...-1] %></td>
-  <td ><%= @container.c_id %></td>
-  <td ><%= @container.status %></td>
-  <td ><%= @container.image %></td>
  
-  
- </tr>
- 
-</table>
-
-
-
-
-    <style type="text/css">
-    .col-lg-4 {
-    width: 93.333% !important;
-}
-
-    </style>
-    
-
+<%= render :partial => 'cinfo' %>
+<!-- Modal HTML -->
 

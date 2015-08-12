@@ -18,12 +18,13 @@ class DockerController < ApplicationController
   def containers
     
     @containers = Container.all
+    @container = Container.new
     @hosts = Host.all
 
   
   end
 
-  def sync_containers
+  def sync_containers 
 
     @host = Host.find_by_ip params[:host_id]
 
@@ -53,7 +54,7 @@ class DockerController < ApplicationController
      end
   
     
-   @containers = Container.all
+   @containers = Container.all  
      @hosts = Host.all
      render 'containers'
     
@@ -66,9 +67,13 @@ class DockerController < ApplicationController
     @container = Container.find(params[:id])
 
 
-     
+    
    # cinfo = RestClient.get 'http://52.11.9.194:4243/containers/9f2146e058d1cb988ac70b5aae2860518374896deb3ba9c67496b48237fff452/json'
    #  @cinfo = JSON.parse(cinfo)
+    
+  end
+
+  def create_container
     
   end
 

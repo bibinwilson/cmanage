@@ -1,11 +1,11 @@
-#!/usr/bin/env ruby
+require 'socket'      # Sockets are in standard library
 
-require 'net/ping'
+hostname = 'LP-3C970EE1AB15'
+port = 3000
 
-def up?(host)
-    check = Net::Ping::TCP.new(host)
-    check.ping
+s = TCPSocket.open(hostname, port)
+
+while line = s.gets   # Read lines from the socket
+  puts line.chop      # And print with platform line terminator
 end
-
-chost = '127.0.0.1'
-puts up?(chost)
+s.close               # Close the socket when done

@@ -9,7 +9,6 @@ class CreateContainers < ActiveRecord::Migration
       t.string :name
       t.string :ports
       t.string :status
-
       t.timestamps
     end    
   end

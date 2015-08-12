@@ -5,3 +5,7 @@ A Ruby On rails Application for managing Docker Contianers.
 What it can do?
 
 It can manage ( Start, Stop, destroy etc,.) all your docker contianers from a UI. As of now it supports only single host deploymnet.I am working on multhost ocntianer management.
+
+docker run --name db -e MYSQL_ROOT_PASSWORD=root -d mysql
+
+docker run --name web --link db:db -d cmanage rake db:create

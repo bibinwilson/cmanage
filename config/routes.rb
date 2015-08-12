@@ -16,12 +16,15 @@ Rails.application.routes.draw do
   resources :host do
     collection do 
       get :hosts
+
+      post :new_container
     end  
   end
 
   resources :docker do
     collection do
       post :sync_containers
+      post :create_containers
     end
     
   end  
