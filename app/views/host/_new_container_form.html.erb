@@ -1,5 +1,5 @@
 <%#= form_for @ncontainer, :url => {:controller => "host", :action => "new_container"} do |f| %>
-<%= form_tag(controller: "host", action: "new_container", method: "post") do %>
+<%= form_tag(controller: "host", action: "new_container", method: "post", id: "#{params[:id]}") do %>
 
   <div class="form-group"> 
     <%= label_tag(:name, "Container Name", class: "control-label")  %><br>

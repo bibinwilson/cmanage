@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529104737) do
+ActiveRecord::Schema.define(version: 20150813090436) do
 
   create_table "containers", force: true do |t|
     t.integer  "host_id"
+    t.integer  "image_id"
     t.string   "command"
     t.string   "created"
     t.string   "c_id"
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150529104737) do
   end
 
   add_index "containers", ["host_id"], name: "index_containers_on_host_id", using: :btree
+  add_index "containers", ["image_id"], name: "index_containers_on_image_id", using: :btree
 
   create_table "hosts", force: true do |t|
     t.string   "name"
@@ -34,5 +36,17 @@ ActiveRecord::Schema.define(version: 20150529104737) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "images", force: true do |t|
+    t.integer  "host_id"
+    t.string   "image_id"
+    t.string   "tags"
+    t.datetime "created"
+    t.integer  "size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "images", ["host_id"], name: "index_images_on_host_id", using: :btree
 
 end

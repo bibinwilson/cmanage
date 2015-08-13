@@ -9,7 +9,7 @@ class HostController < ApplicationController
   def create
   	@host = Host.new( host_params )
   	if @host.save
-         redirect_to @host
+         redirect_to @host 
      else
        flash[:error] = "Didn't save"
       render 'hosts'
@@ -41,7 +41,13 @@ class HostController < ApplicationController
   end
 
   def new_container
-       
+
+      @host = Host.find(params[:id])
+      ip = @host.ip
+      post= RestClient.post "http://#{ip}:4243/containers/create", { 'Image' => "#{params[:name]}" 
+
+      }.to_json, :content_type => :json, :accept => :json
+     
   end
 
   private
@@ -50,12 +56,7 @@ class HostController < ApplicationController
       params.require(:host).permit(:name, :ip)
     end
 
-    def container_params
-    end
-
-
-
-    
+       
 
 end
 

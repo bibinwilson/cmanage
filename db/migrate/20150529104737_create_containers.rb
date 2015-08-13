@@ -2,6 +2,7 @@ class CreateContainers < ActiveRecord::Migration
   def change
     create_table :containers do |t|
       t.references :host, index: true
+      t.references :image, index: true
       t.string :command
       t.string :created
       t.string :c_id

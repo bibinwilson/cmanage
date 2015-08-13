@@ -1,11 +1,21 @@
-require 'socket'      # Sockets are in standard library
+sync = RestClient.get "http://#{params[:host_id]}:4243/containers/json?all=1"
+        
 
-hostname = 'LP-3C970EE1AB15'
-port = 3000
+     if sync.code.to_i >= 200 && sync.code.to_i < 400 
 
-s = TCPSocket.open(hostname, port)
+      @code = sync.code
 
-while line = s.gets   # Read lines from the socket
-  puts line.chop      # And print with platform line terminator
-end
-s.close               # Close the socket when done
+      @sync = JSON.parse(sync)
+
+      @sync.each do |container| 
+
+        cname = container["Names"]
+             
+        list = @host.containers.build(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"])
+        list.save
+
+     end
+
+      else
+        render 'containers'
+     end
