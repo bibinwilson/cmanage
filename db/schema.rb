@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813090436) do
+ActiveRecord::Schema.define(version: 20150818110253) do
 
   create_table "containers", force: true do |t|
     t.integer  "host_id"
@@ -40,11 +40,12 @@ ActiveRecord::Schema.define(version: 20150813090436) do
   create_table "images", force: true do |t|
     t.integer  "host_id"
     t.string   "image_id"
-    t.string   "tags"
+    t.text     "tags"
     t.datetime "created"
     t.integer  "size"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "virtual_size"
   end
 
   add_index "images", ["host_id"], name: "index_images_on_host_id", using: :btree

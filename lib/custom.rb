@@ -1,3 +1,5 @@
+module Custom
+
 def format_mb(size)
   conv = [ 'b', 'kb', 'mb', 'gb', 'tb', 'pb', 'eb' ];
   scale = 1024;
@@ -16,5 +18,4 @@ def format_mb(size)
   return "#{'%.3f' % (size/(scale**(ndx-1)))} #{conv[ndx-1]}"
 end
 
-
-puts format_mb(2345345345)
+end

@@ -13,8 +13,9 @@
                             <div class="col-lg-12">
                             <div class="col-lg-12">
                             <ul id="generalTab" class="nav nav-tabs responsive">
-                            <li class="active"><a href="#alert-tab" data-toggle="tab">Container List</a></li>
-                            <li><a href="#list-group-tab" data-toggle="tab">New Container</a></li>
+                            <li class="active"><a href="#alert-tab" data-toggle="tab">   Container List</a></li>
+                            <li><a href="#list-group-tab" data-toggle="tab">New Container</a>
+                            <li><a href="#list-group-images-tab" data-toggle="tab">Images</a></li>
                             <!-- <li><a href="#list-group-tab1" data-toggle="tab">Sync Containers</a></li> -->
                             </ul>
                         <div id="generalTabContent" class="tab-content responsive">
@@ -33,6 +34,10 @@
                             <div id="list-group-tab" class="tab-pane fade">
                                 
                                 <%= render :partial => 'new_container_form' %>
+                            </div>
+                             <div id="list-group-images-tab" class="tab-pane fade">
+                                
+                                <%= render :partial => 'ilist' %>
                             </div>
                             
                                                                                            

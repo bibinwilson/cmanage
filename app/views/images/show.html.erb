@@ -1,0 +1,12 @@
+
+
+<% @sync.each do |image| %>
+
+<% names=image["RepoTags"].to_a %>
+
+<% names.each do |val| %>
+
+  <%= val %>
+<% end %>
+
+<% end %>

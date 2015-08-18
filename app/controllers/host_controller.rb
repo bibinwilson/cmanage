@@ -27,6 +27,7 @@ class HostController < ApplicationController
   	@host = Host.find(params[:id])
     @hosts = Host.all
     @containers = @host.containers
+    @images = @host.images
     @container = Container.new
   end
 

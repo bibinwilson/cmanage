@@ -29,6 +29,13 @@ Rails.application.routes.draw do
     
   end  
   
+  resources :images do
+    collection do
+      
+    end
+    
+  end 
+
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -21,7 +21,7 @@ load File.join(Rails.root, 'lib', 'tasks', 'schedule.rake')
 cschedule = Rufus::Scheduler.new
 # Making use of the syntax used in Crontab
 
-cschedule.every '1m' do  
+cschedule.every '3m' do  
 
   task = Rake::Task["schedule:cschedule"] 
 

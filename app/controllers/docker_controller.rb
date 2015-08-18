@@ -64,6 +64,7 @@ class DockerController < ApplicationController
     @container = Container.find(params[:id])
 
 
+
     
    # cinfo = RestClient.get 'http://52.11.9.194:4243/containers/9f2146e058d1cb988ac70b5aae2860518374896deb3ba9c67496b48237fff452/json'
    #  @cinfo = JSON.parse(cinfo)
