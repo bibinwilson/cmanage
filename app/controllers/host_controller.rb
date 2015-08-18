@@ -28,7 +28,20 @@ class HostController < ApplicationController
     @hosts = Host.all
     @containers = @host.containers
     @images = @host.images
-    @container = Container.new
+    @container = Container.new 
+
+    RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
+        
+      case response.code
+      when 200   
+        @info = JSON.parse(response)
+
+       else
+        response.return!(request, result, &block)
+    
+    end
+  }
+
   end
 
   def destroy 

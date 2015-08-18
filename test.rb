@@ -1,20 +1,13 @@
-def format_mb(size)
-  conv = [ 'b', 'kb', 'mb', 'gb', 'tb', 'pb', 'eb' ];
-  scale = 1024;
+ages = {
+    "Jack" => 10,
+    "Jill" => 12,
+    "Bob" => 14
+  }
 
-  ndx=1
-  if( size < 2*(scale**ndx)  ) then
-    return "#{(size)} #{conv[ndx-1]}"
+
+  ages.each do |key, value|
+
+    puts value["Jack"]
   end
-  size=size.to_f
-  [2,3,4,5,6,7].each do |ndx|
-    if( size < 2*(scale**ndx)  ) then
-      return "#{'%.3f' % (size/(scale**(ndx-1)))} #{conv[ndx-1]}"
-    end
-  end
-  ndx=7
-  return "#{'%.3f' % (size/(scale**(ndx-1)))} #{conv[ndx-1]}"
-end
 
 
-puts format_mb(2345345345)

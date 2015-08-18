@@ -16,6 +16,7 @@
                             <li class="active"><a href="#alert-tab" data-toggle="tab">   Container List</a></li>
                             <li><a href="#list-group-tab" data-toggle="tab">New Container</a>
                             <li><a href="#list-group-images-tab" data-toggle="tab">Images</a></li>
+                            <li><a href="#list-group-docker-tab" data-toggle="tab">Docker Info</a></li>
                             <!-- <li><a href="#list-group-tab1" data-toggle="tab">Sync Containers</a></li> -->
                             </ul>
                         <div id="generalTabContent" class="tab-content responsive">
@@ -38,6 +39,10 @@
                              <div id="list-group-images-tab" class="tab-pane fade">
                                 
                                 <%= render :partial => 'ilist' %>
+                            </div>
+                            <div id="list-group-docker-tab" class="tab-pane fade">
+                                
+                                <%= render :partial => 'dinfo' %>
                             </div>
                             
                                                                                            
