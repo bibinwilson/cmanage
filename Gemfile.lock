@@ -117,8 +117,6 @@ GEM
     logify (0.2.0)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    materialize-sass (0.97.0)
-      sass (~> 3.3)
     method_source (0.8.2)
     mime-types (2.6.1)
     minitest (5.8.0)
@@ -294,7 +292,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   json
-  materialize-sass
   mysql2
   net-ping (~> 1.7.7)
   node (~> 0.0.2)

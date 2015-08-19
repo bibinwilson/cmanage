@@ -23,4 +23,3 @@ module Cmanage
   end
 end
 
-config.autoload_paths << Rails.root.join('lib')

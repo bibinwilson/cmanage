@@ -2,9 +2,7 @@ class HostController < ApplicationController
   def new
   end
 
-  def list
-  	@hosts = Host.all
-  end
+
 
   def create
   	@host = Host.new( host_params )
@@ -16,9 +14,23 @@ class HostController < ApplicationController
     end
     
   end
+  
+
+   def update_host
+
+    @host = Host.find(params[:id])
+    @host.update_attributes(host_update_params)
+    if @host.save
+      redirect_to @host, flash: {notice: "Successfully checked in"}
+    else
+      flash[:error] = 'Data Not Saved. Try Again'
+      redirect_to @host
+    end
+    
+  end
 
   def hosts
-  	@host = Host.new
+    @host = Host.new
   	@hosts = Host.all
 
   end
@@ -30,17 +42,17 @@ class HostController < ApplicationController
     @images = @host.images
     @container = Container.new 
 
-    RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
+  #   RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
         
-      case response.code
-      when 200   
-        @info = JSON.parse(response)
+  #     case response.code
+  #     when 200   
+  #       @info = JSON.parse(response)
 
-       else
-        response.return!(request, result, &block)
+  #      else
+  #       response.return!(request, result, &block)
     
-    end
-  }
+  #   end
+  # }
 
   end
 
@@ -68,6 +80,10 @@ class HostController < ApplicationController
 
     def host_params
       params.require(:host).permit(:name, :ip)
+    end
+
+    def host_update_params
+      params.permit(:name, :ip)
     end
 
        

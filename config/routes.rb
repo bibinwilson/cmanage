@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get :hosts
 
       post :new_container
+      post :update_host
     end  
   end
 

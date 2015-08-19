@@ -20,12 +20,19 @@
             <ul class="dropdown">
                 <li><%= link_to 'Edit', edit_host_path(host) %></li>
                 <li><%= link_to 'Delete', host, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-                <li><%= link_to 'View', host %></li>
+                <li><%= link_to 'asdasd', host %></li>
+                <li><a href="#myModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">Edit Host</a></li>
             </ul>
           </div>
   </td>
  </tr>
   <% end %>
 </table>
+
+  
+
+ 
+<%= render :partial => '_edit_host.html.erb' %>
+
 
 
