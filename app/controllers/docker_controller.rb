@@ -23,32 +23,50 @@ class DockerController < ApplicationController
 
     @host = Host.find_by_ip params[:host_id]
     
-    @host.containers.delete_all
-    #Container.delete_all
-
      RestClient.get("http://#{params[:host_id]}:4243/containers/json?all=1") { |response, request, result, &block|
         
       case response.code
-      when 200   
-        @sync = JSON.parse(response)
+        when 200   
+          @sync = JSON.parse(response)
 
-        @sync.each do |container| 
+          @sync.each do |container| 
 
-        cname = container["Names"]
-             
-        list = @host.containers.build(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"])
+          cname = container["Names"]
+               
+          @host.containers.where(:c_id => container["Id"] ).first_or_create(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"], :flag => "0")
+          change = @host.containers.find_by_c_id(container["Id"])
+          change.flag="0"
+          change.save
+              
+        end
+
+         @invalid = @host.containers.all
+          @invalid.each do | val |
+            cid = val.c_id
+            change = @host.containers.find_by_c_id(cid)
+            if  change.flag.blank?
+                change.destroy
+            end
+          end
         
-        list.save
-      end
+      
+          @flagset = @host.containers.all
+          @flagset.each do | val |
+            cid = val.c_id
+            change = @host.containers.find_by_c_id(cid)
+            change.flag=""
+            change.save
+          end     
+
       else
         response.return!(request, result, &block)
     
     end
   }
-  
-    
+      
      @containers = Container.all  
      @hosts = Host.all
+     Container.sync_container
      render 'containers'
     
   end
@@ -107,9 +125,27 @@ class DockerController < ApplicationController
     
     @container = Container.find(params[:id])
     @host = Host.find(@container.host_id)
-    post= RestClient.delete "http://#{@host.ip}:4243/containers/#{@container.c_id}", :content_type => :json, :accept => :json
-    Container.sync_container
-    redirect_to host_path(@host, id: @container.host_id)
+    RestClient.delete("http://#{@host.ip}:4243/containers/#{@container.c_id}", :content_type => :json, :accept => :json) { |response, request, result, &block|
+          case response.code
+            when 204
+             Container.sync_container
+             redirect_to host_path(@host, id: @host.id),flash: {notice: "Howdyy!;( You have successfull deleted the container!" }
+            when 400
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Sorry Howdyy!;( You gotta check your parameter!"}
+            when 404
+
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Hey you!! The container doesnt exist on the server!"}
+
+            when 500
+
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Sorry Howdyy!;( Sever had a 500 internal error !"}
+
+            else
+              response.return!(request, result, &block)
+          end
+    }
+    #Container.sync_container
+    #redirect_to host_path(@host, id: @container.host_id)
    
   end
 

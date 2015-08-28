@@ -22,10 +22,10 @@ class Image < ActiveRecord::Base
 		            iname = image["RepoTags"].to_a
 		            imgname=iname[0]
 		            vsize = format_mb(image["VirtualSize"])
-		            
-		            
-		            list = host.images.build(:image_id => image["Id"] , :tags => imgname, :created => image["Created"], :size => image["Size"], :virtual_size => vsize )
-		        
+		                        
+		            # list = host.images.build(:image_id => image["Id"] , :tags => imgname, :created => image["Created"], :size => image["Size"], :virtual_size => vsize )
+		            host.images.where(:image_id => image["Id"] ).first_or_create(:image_id => image["Id"] , :tags => imgname, :created => image["Created"], :size => image["Size"], :virtual_size => vsize)
+
 		            list.save
 		        end
 

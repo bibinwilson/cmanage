@@ -1,22 +1,9 @@
-include ActionController::Live
+@sync = JSON.parse(response)
 
-  private
+        @sync.each do |container| 
 
-  def follow_log
-    begin
-      stdin, stdout, stderr, wait_thread = Open3.popen3("tail -F -n 0 #{Rails.root.join('log', 'development.log')}")
-
-      stdout.each_line do |line|
-        yield line
-      end
-
-    rescue IOError
-
-    ensure
-      stdin.close
-      stdout.close
-      stderr.close
-      Process.kill('HUP', wait_thread[:pid])
-      logger.info("Killing Tail pid: #{wait_thread[:pid]}")
-    end
-  end
+        cname = container["Names"]
+             
+        list = @host.containers.build(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"])
+        
+        list.save

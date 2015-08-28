@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818110253) do
+ActiveRecord::Schema.define(version: 20150828093033) do
 
   create_table "containers", force: true do |t|
     t.integer  "host_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150818110253) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "flag"
   end
 
   add_index "containers", ["host_id"], name: "index_containers_on_host_id", using: :btree
