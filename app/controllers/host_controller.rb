@@ -38,21 +38,20 @@ class HostController < ApplicationController
   def show
   	@host = Host.find(params[:id])
     @hosts = Host.all
-    @containers = @host.containers
     @images = @host.images
     @container = Container.new 
 
-  #   RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
+    RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
         
-  #     case response.code
-  #     when 200   
-  #       @info = JSON.parse(response)
+      case response.code
+      when 200   
+        @info = JSON.parse(response)
 
-  #      else
-  #       response.return!(request, result, &block)
+       else
+        response.return!(request, result, &block)
     
-  #   end
-  # }
+    end
+  }
 
   end
 
@@ -73,8 +72,14 @@ class HostController < ApplicationController
       post= RestClient.post "http://#{ip}:4243/containers/create", { 'Image' => "#{params[:name]}" 
 
       }.to_json, :content_type => :json, :accept => :json
-     
+      
+      Container.sync_container
+      
+      redirect_to @host
+    
   end
+
+
 
   private
 

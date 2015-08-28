@@ -1,7 +1,7 @@
 class Host < ActiveRecord::Base
 
 #has_many :containers, :dependent => :destroy
-has_many :images
+has_many :images ,:dependent => :destroy
 has_many :containers , :dependent => :destroy
 
 	validates :name, presence: true

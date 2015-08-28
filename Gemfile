@@ -2,8 +2,8 @@ source 'http://rubygems.org'
 
 #docker gem
 gem "font-awesome-rails"
-gem 'chef-api', '~> 0.1'
-gem 'chef', '~> 12.3.0'
+#gem 'chef-api', '~> 0.1'
+#gem 'chef', '~> 12.3.0'
 gem 'rest-client', '~> 1.8.0'
 gem 'docker-api', :require => 'docker'
 gem 'bootstrap-sass', '~> 3.2.0'

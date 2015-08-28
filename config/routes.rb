@@ -19,13 +19,16 @@ Rails.application.routes.draw do
 
       post :new_container
       post :update_host
-    end  
+      end  
   end
 
   resources :docker do
     collection do
       post :sync_containers
       post :create_containers
+      post :start_container
+      post :restart_container
+      post :stop_container
     end
     
   end  

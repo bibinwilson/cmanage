@@ -11,16 +11,11 @@ class DockerController < ApplicationController
     @host_count = Host.count
   end
 
-  def new
-
-  end
-
   def containers
     
     @containers = Container.all
     @container = Container.new
     @hosts = Host.all
-
   
   end
 
@@ -62,14 +57,64 @@ class DockerController < ApplicationController
   def show
 
     @container = Container.find(params[:id])
-
-
-
-    
-   # cinfo = RestClient.get 'http://52.11.9.194:4243/containers/9f2146e058d1cb988ac70b5aae2860518374896deb3ba9c67496b48237fff452/json'
-   #  @cinfo = JSON.parse(cinfo)
     
   end
+
+  def start_container
+    @container = Container.find(params[:id])
+    @host = Host.find(@container.host_id)
+    post= RestClient.post "http://#{@host.ip}:4243/containers/#{@container.c_id}/start", { '' => ""}.to_json, :content_type => :json, :accept => :json
+    redirect_to docker_path(@container, id: @container.id), flash: {notice: "Successfully Made the Start Request"}
+  
+  end
+
+  def restart_container
+    @container = Container.find(params[:id])
+    @host = Host.find(@container.host_id)
+    post= RestClient.post "http://#{@host.ip}:4243/containers/#{@container.c_id}/restart", { '' => ""}.to_json, :content_type => :json, :accept => :json
+    redirect_to docker_path(@container, id: @container.id), flash: {notice: "Successfully Made the ReStart Request"}
+  
+  end
+
+  def stop_container
+    @container = Container.find(params[:id])
+    @host = Host.find(@container.host_id)
+    RestClient.post("http://#{@host.ip}:4243/containers/#{@container.c_id}/stop", { '' => ""}.to_json, :content_type => :json, :accept => :json){ |response, request, result, &block|
+          case response.code
+            when 200
+              p "It worked !"
+              response
+            when 304
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Slow Down Howdyy!;( The container is already stopped !"}
+            when 404
+
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Slow Down Howdyy!;( There is no such Container!"}
+
+            when 304
+
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Sorry Howdyy!;( Sever has 500 internal error !"}
+
+            else
+              response.return!(request, result, &block)
+          end
+    }
+  
+  end
+
+    
+
+  def destroy
+    
+    @container = Container.find(params[:id])
+    @host = Host.find(@container.host_id)
+    post= RestClient.delete "http://#{@host.ip}:4243/containers/#{@container.c_id}", :content_type => :json, :accept => :json
+    Container.sync_container
+    redirect_to host_path(@host, id: @container.host_id)
+   
+  end
+
+
+
 
  
 end

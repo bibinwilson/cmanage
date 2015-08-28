@@ -19,11 +19,21 @@ load File.join(Rails.root, 'lib', 'tasks', 'schedule.rake')
 # OPTION 1: If you want to run the scheduler as part of your very own rails process then you may adopt this option
 
 cschedule = Rufus::Scheduler.new
+ischedule = Rufus::Scheduler.new
 # Making use of the syntax used in Crontab
 
-cschedule.every '3m' do  
+cschedule.every '10m' do  
 
   task = Rake::Task["schedule:cschedule"] 
+
+  task.reenable  # If only you do this, will your rake task run the next time you invoke it.
+
+  task.invoke
+end
+
+ischedule.every '15m' do  
+
+  task = Rake::Task["schedule:ischedule"] 
 
   task.reenable  # If only you do this, will your rake task run the next time you invoke it.
 
