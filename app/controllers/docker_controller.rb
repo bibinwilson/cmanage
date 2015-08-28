@@ -82,7 +82,7 @@ class DockerController < ApplicationController
     @container = Container.find(params[:id])
     @host = Host.find(@container.host_id)
     post= RestClient.post "http://#{@host.ip}:4243/containers/#{@container.c_id}/start", { '' => ""}.to_json, :content_type => :json, :accept => :json
-    redirect_to docker_path(@container, id: @container.id), flash: {notice: "Successfully Made the Start Request"}
+    redirect_to docker_path(@container), flash: {notice: "Successfully Made the Start Request"}
   
   end
 
@@ -90,7 +90,7 @@ class DockerController < ApplicationController
     @container = Container.find(params[:id])
     @host = Host.find(@container.host_id)
     post= RestClient.post "http://#{@host.ip}:4243/containers/#{@container.c_id}/restart", { '' => ""}.to_json, :content_type => :json, :accept => :json
-    redirect_to docker_path(@container, id: @container.id), flash: {notice: "Successfully Made the ReStart Request"}
+    redirect_to docker_path(@container), flash: {notice: "Successfully Made the ReStart Request"}
   
   end
 
@@ -103,7 +103,7 @@ class DockerController < ApplicationController
               p "It worked !"
               response
             when 304
-              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Slow Down Howdyy!;( The container is already stopped !"}
+              redirect_to docker_path(@container), flash: {notice: "Slow Down Howdyy!;( The container is already stopped !"}
             when 404
 
               redirect_to docker_path(@container, id: @container.id), flash: {notice: "Slow Down Howdyy!;( There is no such Container!"}
@@ -129,7 +129,7 @@ class DockerController < ApplicationController
           case response.code
             when 204
              Container.sync_container
-             redirect_to host_path(@host, id: @host.id),flash: {notice: "Howdyy!;( You have successfull deleted the container!" }
+             redirect_to host_path(@host),flash: {notice: "Howdyy!;( You have successfull deleted the container!" }
             when 400
               redirect_to docker_path(@container, id: @container.id), flash: {notice: "Sorry Howdyy!;( You gotta check your parameter!"}
             when 404
