@@ -37,8 +37,11 @@ class DockerController < ApplicationController
           change = @host.containers.find_by_c_id(container["Id"])
           change.flag="0"
           change.save
-              
+
         end
+        when 500
+
+          redirect_to root_path
 
          @invalid = @host.containers.all
           @invalid.each do | val |
@@ -75,14 +78,33 @@ class DockerController < ApplicationController
   def show
 
     @container = Container.find(params[:id])
+
+
     
   end
 
   def start_container
     @container = Container.find(params[:id])
     @host = Host.find(@container.host_id)
-    post= RestClient.post "http://#{@host.ip}:4243/containers/#{@container.c_id}/start", { '' => ""}.to_json, :content_type => :json, :accept => :json
-    redirect_to docker_path(@container), flash: {notice: "Successfully Made the Start Request"}
+    post= RestClient.post("http://#{@host.ip}:4243/containers/#{@container.c_id}/start", { '' => ""}.to_json, :content_type => :json, :accept => :json){ |response, request, result, &block|
+          case response.code
+            when 204
+              redirect_to docker_path(@container), flash: {notice: "Successfully Made the Start Request"}
+
+            when 304
+              redirect_to docker_path(@container), flash: {notice: "Slow Down Howdyy!;( The container is already Running !"}
+            when 404
+
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Slow Down Howdyy!;( There is no such Container!"}
+
+            when 500
+
+              redirect_to docker_path(@container, id: @container.id), flash: {notice: "Sorry Howdyy!;( Sever has 500 internal error !"}
+
+            else
+              response.return!(request, result, &block)
+          end
+    }
   
   end
 
@@ -99,9 +121,8 @@ class DockerController < ApplicationController
     @host = Host.find(@container.host_id)
     RestClient.post("http://#{@host.ip}:4243/containers/#{@container.c_id}/stop", { '' => ""}.to_json, :content_type => :json, :accept => :json){ |response, request, result, &block|
           case response.code
-            when 200
-              p "It worked !"
-              response
+            when 204
+             redirect_to docker_path(@container), flash: {notice: "Howdyy!;( The container Has been stopped !"}
             when 304
               redirect_to docker_path(@container), flash: {notice: "Slow Down Howdyy!;( The container is already stopped !"}
             when 404
@@ -144,10 +165,10 @@ class DockerController < ApplicationController
               response.return!(request, result, &block)
           end
     }
-    #Container.sync_container
-    #redirect_to host_path(@host, id: @container.host_id)
-   
+       
   end
+
+
 
 
 

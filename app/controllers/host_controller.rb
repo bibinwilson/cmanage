@@ -41,17 +41,19 @@ class HostController < ApplicationController
     @images = @host.images
     @container = Container.new 
 
-    RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
+  #   RestClient.get("http://#{@host.ip}:4243/info") { |response, request, result, &block|
         
-      case response.code
-      when 200   
-        @info = JSON.parse(response)
-
-       else
-        response.return!(request, result, &block)
+  #     case response.code
+  #     when 200   
+  #       @info = JSON.parse(response)
+  #     when 500
+  #       redirect_to root_path
+       
+  #      else
+  #       response.return!(request, result, &block)
     
-    end
-  }
+  #   end
+  # }
 
   end
 
@@ -69,9 +71,18 @@ class HostController < ApplicationController
 
       @host = Host.find(params[:id])
       ip = @host.ip
-      post= RestClient.post "http://#{ip}:4243/containers/create", { 'Image' => "#{params[:name]}" 
+      post= RestClient.post "http://#{ip}:4243/containers/create", { 
+        "Image" => "#{params[:name]}",
+        "ExposedPorts" => {
+               "22/tcp" => {},
+               "80/tcp" => {}
+       }
 
       }.to_json, :content_type => :json, :accept => :json
+
+      status = JSON.parse(post)
+      c_id = status["Id"]
+      RestClient.post "http://#{ip}:4243/containers/#{post["Id"]}/start"
       
       Container.sync_container
       

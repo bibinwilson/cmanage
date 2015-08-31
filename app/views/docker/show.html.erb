@@ -79,6 +79,35 @@
                                 </div>
                             </div>
                              <% end %>
+                                <%#= link_to  "#myModal", :data => {'data-toggle' => "modal"} do %>
+                         <a href="#myModal" data-toggle="modal">
+                             <div class="col-sm-6 col-md-3">
+                                <div class="panel profit db mbm">
+                                    <div class="panel-body">
+                                       <p class="description">SHOW LOGS</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                             
+                             <%# end %>
+                              
+                        <%= render :partial => 'logs' %>
+                        <a href="#processmodal" data-toggle="modal">
+                             <div class="col-sm-6 col-md-3">
+                                <div class="panel profit db mbm">
+                                    <div class="panel-body">
+                                       <p class="description">RUNNING PROCESS</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                             
+                             <%# end %>
+                              
+                        <%= render :partial => 'process' %>
                         </div>
                         <div class="row mbl">
                             <div class="col-lg-8">
@@ -142,8 +171,10 @@
                                     <div class="portlet-header">
                                         <div class="caption">
                                             STATUS</div>
+
                                     </div>
-                                 
+                                     <h4 class="mbm"><%= @container.status %></h4>
+                                                                      
                             </div>
                         </div>
                         

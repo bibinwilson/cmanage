@@ -60,4 +60,15 @@ input[type="reset"], input[type="submit"] {
   overflow: hidden; z-index:9999
 }
 
+pre {
+    height: auto;
+    max-height: 400px;
+    overflow: auto;
+    background-color: #eeeeee;
+    word-break: normal !important;
+    word-wrap: normal !important;
+    white-space: pre !important;
+    line-height: 2.429 !important;
+}
+
 
