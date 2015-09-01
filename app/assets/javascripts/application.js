@@ -26,3 +26,14 @@ function hide_loader(){
 
 	$("#loader_id").addClass("off");
 }
+function show_loader_1(){
+	$("#black-overlay_1").removeClass("off");
+	$("#loader_id_1").removeClass("off");
+	
+
+}
+
+function hide_loader(){
+
+	$("#loader_id_1").addClass("off");
+}

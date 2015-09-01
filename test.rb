@@ -1,9 +1,7 @@
-@sync = JSON.parse(response)
 
-        @sync.each do |container| 
+require 'rest-client'
 
-        cname = container["Names"]
-             
-        list = @host.containers.build(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"])
-        
-        list.save
+#resp = RestClient::Request.execute(method: :get, timeout: 5, url: 'http://10.23.23.34')
+resp = RestClient::Request.execute(:method => :get, :url => 'http://10.23.23.34', :timeout => 15 )
+
+puts resp

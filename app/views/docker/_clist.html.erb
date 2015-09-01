@@ -3,7 +3,7 @@
 <th> Name</th>
 <!-- <th> Container ID</th> -->
 <th>Status</th>
-<th>Image Name</th> 
+<th>Host Name</th> 
 <th>Edit</th>
 
 <!-- On cells (`td` or `th`) -->
@@ -14,7 +14,8 @@
   <td ><%= cname.chomp[0...-1] %></td>
   <!-- <td ><%= container.c_id %></td> -->
   <td ><%= container.status %></td>
-  <td ><%= container.image %></td>
+
+  <td ><%= host_name(container.host_id) %></td>
  
   <td>
             
@@ -23,8 +24,8 @@
           <ul class="dropdown-menu">
             
             <li><%= link_to 'View', docker_path(:id => container.id) %></li>
-            <li> <a href="#myModal" role="button"  data-toggle="modal">Launch Demo Modal</a></li>
-          </ul>
+<!--             <li> <a href="#myModal" role="button"  data-toggle="modal">Launch Demo Modal</a></li>
+ -->          </ul>
       </div>
   </td>
  </tr>

@@ -14,7 +14,6 @@ class DockerController < ApplicationController
   def containers
     
     @containers = Container.all
-    @container = Container.new
     @hosts = Host.all
   
   end
@@ -22,9 +21,14 @@ class DockerController < ApplicationController
   def sync_containers 
 
     @host = Host.find_by_ip params[:host_id]
+    #RestClient::Request.execute(method: :get, url: 'http://#{params[:host_id]}:4243/containers/json?all=1', timeout: 5)
     
-     RestClient.get("http://#{params[:host_id]}:4243/containers/json?all=1") { |response, request, result, &block|
-        
+    #RestClient.get("http://#{params[:host_id]}:4243/containers/json?all=1") 
+
+
+    RestClient::Request.execute(method: :get, url: "http://#{params[:host_id]}:4243/containers/json?all=1", timeout: 5) { |response, request, result, &block|
+     
+
       case response.code
         when 200   
           @sync = JSON.parse(response)
@@ -36,12 +40,11 @@ class DockerController < ApplicationController
           @host.containers.where(:c_id => container["Id"] ).first_or_create(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"], :flag => "0")
           change = @host.containers.find_by_c_id(container["Id"])
           change.flag="0"
+          change.status="#{container["Status"]}"
           change.save
 
         end
-        when 500
-
-          redirect_to root_path
+        
 
          @invalid = @host.containers.all
           @invalid.each do | val |
@@ -59,11 +62,19 @@ class DockerController < ApplicationController
             change = @host.containers.find_by_c_id(cid)
             change.flag=""
             change.save
-          end     
+          end   
+
+          when 500
+
+          redirect_to root_path  
+
+        when 408
+
+          redirect_to root_path
 
       else
-        response.return!(request, result, &block)
-    
+       response.return!(request, result, &block)
+          
     end
   }
       
@@ -73,14 +84,58 @@ class DockerController < ApplicationController
      render 'containers'
     
   end
-       
+
+  def sync_images
+
+    @host = Host.find_by_ip params[:host_id]
+    @host.images.delete_all
+
+        RestClient.get("http://#{params[:host_id]}:4243/images/json") { |response, request, result, &block|
+              
+           case response.code
+            when 200   
+              @sync = JSON.parse(response)  
+              @sync.each do |image| 
+                iname = image["RepoTags"].to_a
+                imgname=iname[0]
+                vsize = format_mb(image["VirtualSize"])
+                list = @host.images.build(:image_id => image["Id"] , :tags => imgname, :created => image["Created"], :size => image["Size"], :virtual_size => vsize )
+                list.save
+            end
+
+            else
+              response.return!(request, result, &block)
+          
+          end
+        }
+
+        redirect_to images_path
+  end
+
+  def format_mb(size)
+      conv = [ 'b', 'kb', 'mb', 'gb', 'tb', 'pb', 'eb' ];
+      scale = 1024;
+
+      ndx=1
+      if( size < 2*(scale**ndx)  ) then
+        return "#{(size)} #{conv[ndx-1]}"
+      end
+      size=size.to_f
+      [2,3,4,5,6,7].each do |ndx|
+        if( size < 2*(scale**ndx)  ) then
+          return "#{'%.3f' % (size/(scale**(ndx-1)))} #{conv[ndx-1]}"
+        end
+      end
+      ndx=7
+      return "#{'%.3f' % (size/(scale**(ndx-1)))} #{conv[ndx-1]}"
+  end
+
+      
 
   def show
 
     @container = Container.find(params[:id])
 
-
-    
   end
 
   def start_container
@@ -168,10 +223,8 @@ class DockerController < ApplicationController
        
   end
 
+  
 
 
-
-
-
- 
 end
+

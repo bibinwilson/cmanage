@@ -1,0 +1,29 @@
+<div  class="jumbotron">
+  <h1>You can Sync Your Docker Images with one click</h1>
+
+<!--   <p><a class="btn btn-primary btn-lg" href="#" role="button">Sync Now</a></p>
+
+ -->  
+ <%= form_tag url_for(:controller => "docker", :action => "sync_images"), :method => :post do |f| %>
+
+<div class="col-sm-10">
+            <select id="bgOpacity" name="host_id" class="form-control" value="Select a Host">
+            <% @hosts.each do |host| %>
+                <option value="<%= host.ip %>"><%= host.ip %></option>
+            <% end %>
+               
+            </select>
+        </div>
+ <!--<span onclick="show_loader()"><%#= button_to "Sync Now", { action: "sync_containers" } ,form_class:  "button_to"    %></span>-->
+ <span onclick="show_loader_1()"><%= submit_tag "Submit"%></span>
+ <% end %>
+</div>
+<div class="overlay off" id ="black-overlay_1"></div>
+<div id="loader_id_1"class="loading off"  style="top: 150px; height: 547px; width: 600px; left: 374.5px; background-color: rgb(255, 255, 255);">
+    <div class="loading x32" style="margin-top: 257.5px; margin-left: 284px;">
+        <%=image_tag("loading-2.gif" ,alt: "loading Image") %>
+        <span style="color: rgb(0, 0, 0);"></span>
+    </div>
+</div>
+
+

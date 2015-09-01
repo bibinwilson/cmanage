@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  
   get 'host/new'
 
   get 'host/list'
@@ -25,6 +27,7 @@ Rails.application.routes.draw do
   resources :docker do
     collection do
       post :sync_containers
+      post :sync_images
       post :create_containers
       post :start_container
       post :restart_container

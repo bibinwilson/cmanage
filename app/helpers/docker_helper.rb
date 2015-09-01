@@ -1,4 +1,13 @@
 module DockerHelper
+
+
+  def host_name(host_id)
+  
+  host = Host.find(host_id)
+  host_name = host.name
+  host_name
+
+  end
 	
 
 	def show_logs(id)
@@ -35,6 +44,8 @@ module DockerHelper
     }
     
    end
+
+   
 
   
    end

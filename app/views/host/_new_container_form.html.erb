@@ -2,7 +2,7 @@
 <%= form_tag(controller: "host", action: "new_container", method: "post", id: "#{params[:id]}") do %>
 
   <div class="form-group"> 
-    <%= label_tag(:name, "Container Name", class: "control-label")  %><br>
+    <%= label_tag(:name, "Image", class: "control-label")  %><br>
     <%#= f.text_field :name, class: 'form-control' %>
     <%#= f.label :image, class: 'control-label' %><br>
     <%#= f.text_field :image, class: 'form-control' %>

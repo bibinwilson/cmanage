@@ -80,9 +80,9 @@ class HostController < ApplicationController
 
       }.to_json, :content_type => :json, :accept => :json
 
-      status = JSON.parse(post)
-      c_id = status["Id"]
-      RestClient.post "http://#{ip}:4243/containers/#{post["Id"]}/start"
+      # status = JSON.parse(post)
+      # c_id = status["Id"]
+      # RestClient.post "http://#{ip}:4243/containers/#{post["Id"]}/start"
       
       Container.sync_container
       
