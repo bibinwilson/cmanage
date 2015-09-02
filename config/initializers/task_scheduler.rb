@@ -22,7 +22,7 @@ cschedule = Rufus::Scheduler.new
 ischedule = Rufus::Scheduler.new
 # Making use of the syntax used in Crontab
 
-cschedule.every '30m' do  
+cschedule.every '1m' do  
 
   task = Rake::Task["schedule:cschedule"] 
 

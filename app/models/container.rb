@@ -24,6 +24,7 @@ def self.sync_container
        						host.containers.where(:c_id => container["Id"] ).first_or_create(:name => cname , :command => container["Command"], :created => container["Created"], :c_id => container["Id"], :image => container["Image"], :ports => "8080", :status => container["Status"], :flag => "0")
 					        change = host.containers.find_by_c_id(container["Id"])
 					        change.flag="0"
+					        change.status="#{container["Status"]}"
 					        change.save
 					      end
 					      @invalid = host.containers.all

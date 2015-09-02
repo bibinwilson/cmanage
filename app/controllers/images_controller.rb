@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
 
-	def new
+	def new 
 	end
 	def index
 		@images = Image.all 
@@ -14,7 +14,7 @@ class ImagesController < ApplicationController
 	def show
 
 	 @images = Image.all 
-	 @ip = "localhost"
+	 @ip = "48"
 	
 		respond_to do |format|
 		    format.html

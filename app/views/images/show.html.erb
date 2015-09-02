@@ -9,21 +9,22 @@ $( document ).ready(function() {
 var ip = "<%= @ip %>";
 function call(){
 console.log("demo");
-var ip ="localhost"
 
 	$.ajax({
-		url: "http://"+ip+":3000/images/show.json",
+		url: "/docker/"+ip+".json",
 		type: "GET",
 		// dataType: 'json',
 		// data:image,
 	 	success: function(success){
 
-	        jQuery.each( success, function( val, key ) {
-	      		  console.log(val);
-	      		  console.log(key.id);
-	      		  $("#image_id").html("thi sis going to be id:"+key.id);
+	 		$("#image_id").html("thi sis going to be id:"+success.status);
+
+	   //      jQuery.each( success, function( val, key ) {
+	   //    		  console.log(val);
+	   //    		  console.log(key.id);
+	   //    		  $("#image_id").html("thi sis going to be id:"+val.status);
 				
-				});
+				// });
 	    },
 	   error: function (error) {
 	        // console.log(error);

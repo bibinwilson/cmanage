@@ -1,4 +1,4 @@
-							<% if flash[:notice] %>
+							<% if flash[:notice] %> 
                              <div class="alert alert-success">
                                <button type="button" class="close" data-dismiss="alert">&times;</button>
                                <%= flash[:notice] %>
@@ -173,7 +173,7 @@
                                             STATUS</div>
 
                                     </div>
-                                     <h4 class="mbm"><%= @container.status %></h4>
+                                     <h4 class="mbm" id ="status_id"><%#= @container.status %></h4>
                                                                       
                             </div>
                         </div>
@@ -188,6 +188,8 @@
 <%= render :partial => 'cinfo' %>
 
 <script>
+
+var id = "<%= @container.id %>";
 $( document ).ready(function() {
      setInterval(function () {call()}, 1000);
    
@@ -197,18 +199,13 @@ function call(){
 console.log("demo");
 
     $.ajax({
-        url: "http://localhost:3000/images/show.json",
+        url: "/docker/"+id+".json",
         type: "GET",
         // dataType: 'json',
         // data:image,
-        success: function(success){
+        success: function(container){
 
-            jQuery.each( success, function( val, key ) {
-                  console.log(val);
-                  console.log(key.id);
-                  $("#image_id").html("thi sis going to be id:"+key.id);
-                
-                });
+            $("#status_id").html(container.status);
         },
        error: function (error) {
             // console.log(error);
