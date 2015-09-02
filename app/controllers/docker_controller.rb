@@ -15,6 +15,11 @@ class DockerController < ApplicationController
     
     @containers = Container.all
     @hosts = Host.all
+
+    respond_to do |format|
+        format.html
+        format.json  { render :json => @containers }
+      end
   
   end
 
@@ -135,8 +140,14 @@ class DockerController < ApplicationController
   def show
 
     @container = Container.find(params[:id])
+    respond_to do |format|
+        format.html
+        format.json  { render :json => @container }
+      end
 
   end
+
+  
 
   def start_container
     @container = Container.find(params[:id])

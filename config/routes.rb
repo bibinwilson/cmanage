@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   
   resources :images do
     collection do
+
+
       
     end
     

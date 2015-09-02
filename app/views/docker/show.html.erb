@@ -186,5 +186,36 @@
 
  
 <%= render :partial => 'cinfo' %>
-<!-- Modal HTML -->
+
+<script>
+$( document ).ready(function() {
+     setInterval(function () {call()}, 1000);
+   
+});
+
+function call(){
+console.log("demo");
+
+    $.ajax({
+        url: "http://localhost:3000/images/show.json",
+        type: "GET",
+        // dataType: 'json',
+        // data:image,
+        success: function(success){
+
+            jQuery.each( success, function( val, key ) {
+                  console.log(val);
+                  console.log(key.id);
+                  $("#image_id").html("thi sis going to be id:"+key.id);
+                
+                });
+        },
+       error: function (error) {
+            // console.log(error);
+         }
+    });
+
+}
+
+</script>
 

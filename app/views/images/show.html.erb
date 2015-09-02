@@ -1,12 +1,44 @@
 
+<script>
 
-<% @images.each do |image| %>
 
-<%= image.tags %></br>
-<%= image.host_id %></br>
-<%= image.virtual_size %></br>
+$( document ).ready(function() {
+     setInterval(function () {call()}, 1000);
+     
+});
+var ip = "<%= @ip %>";
+function call(){
+console.log("demo");
+var ip ="localhost"
 
-</br>
-<%= "#{status.class}" %>
+	$.ajax({
+		url: "http://"+ip+":3000/images/show.json",
+		type: "GET",
+		// dataType: 'json',
+		// data:image,
+	 	success: function(success){
 
-<% end %>
+	        jQuery.each( success, function( val, key ) {
+	      		  console.log(val);
+	      		  console.log(key.id);
+	      		  $("#image_id").html("thi sis going to be id:"+key.id);
+				
+				});
+	    },
+	   error: function (error) {
+	        // console.log(error);
+	     }
+	});
+
+
+}
+
+</script>
+
+
+<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+<button onclick="call()">Get External Content</button>
+
+<p id="image_id"></p>
+

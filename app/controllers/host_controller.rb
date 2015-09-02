@@ -70,23 +70,43 @@ class HostController < ApplicationController
   def new_container
 
       @host = Host.find(params[:id])
-      ip = @host.ip
-      post= RestClient.post "http://#{ip}:4243/containers/create", { 
+      
+      RestClient.post("http://#{@host.ip}:4243/containers/create", { 
         "Image" => "#{params[:name]}",
         "ExposedPorts" => {
                "22/tcp" => {},
                "80/tcp" => {}
        }
 
-      }.to_json, :content_type => :json, :accept => :json
+      }.to_json, :content_type => :json, :accept => :json){ |response, request, result, &block|
+          case response.code
+            when 201
+              @status = JSON.parse(response)
+              RestClient.post("http://#{@host.ip}:4243/containers/#{@status["Id"]}/start", { '' => ""}.to_json, :content_type => :json, :accept => :json){ |response, request, result, &block|
+                case response.code
+                  when 204
+                    puts " hurayyyyy!! started the container"
+                  when 304
+                    
+                  when 404
 
-      # status = JSON.parse(post)
-      # c_id = status["Id"]
-      # RestClient.post "http://#{ip}:4243/containers/#{post["Id"]}/start"
+                  when 500
+                   
+                  else
+                    response.return!(request, result, &block)
+          end
+    }
+
+            else
+              response.return!(request, result, &block)
+          end
+    }
+
+    
+   
+   Container.sync_container
       
-      Container.sync_container
-      
-      redirect_to @host
+   redirect_to @host
     
   end
 
